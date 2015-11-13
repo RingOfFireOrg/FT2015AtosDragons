@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-// this is a comment
+// this is a comment - Atos Dragons :)
 public class Robot extends SampleRobot {
 	// Joysticks
 	Joystick leftStick;
