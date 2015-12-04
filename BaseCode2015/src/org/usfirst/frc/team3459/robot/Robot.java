@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
@@ -22,8 +23,12 @@ public class Robot extends SampleRobot {
 	JoystickButton grabber2;
 	JoystickButton elevator1;
 	JoystickButton elevator2;
-
+	JoystickButton servoButton;
+	
 	RobotDrive myRobot; // robot drive
+	
+	//Servo Stuff
+	Servo roboServo;
 
 	// Grabber*******************************
 	// + Switches
@@ -54,7 +59,8 @@ public class Robot extends SampleRobot {
 		grabber2 = new JoystickButton(controlStick, 11);
 		elevator1 = new JoystickButton(controlStick, 3);
 		elevator2 = new JoystickButton(controlStick, 4);
-
+		servoButton = new JoystickButton(leftStick, 1);
+		
 		myRobot = new RobotDrive(0, 1);
 		myRobot.setExpiration(0.1);
 
@@ -70,6 +76,8 @@ public class Robot extends SampleRobot {
 		grabberMotor = new Victor(3);
 		grabber = new Grabber(grabberMotor, grabber1, grabber2, openSwitch,
 				closeSwitch, pressureSwitch);
+		
+		roboServo = new Servo(9);
 
 	}
 
@@ -96,11 +104,15 @@ public class Robot extends SampleRobot {
 		myRobot.setSafetyEnabled(true);
 
 		while (isOperatorControl() && isEnabled()) {
-			myRobot.tankDrive(leftStick.getY() * -1, rightStick.getY() * -1); // set
-																				// the
-																				// tank
-																				// drive
-
+			myRobot.tankDrive(leftStick.getY() * -1, rightStick.getY() * -1); // set the tank drive
+			if(servoButton.get() == true){
+				roboServo.set(1);
+				
+			
+			}																	
+			else{
+				roboServo.set(0);
+			}
 			grabber.update();
 			elevator.update();
 
