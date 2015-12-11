@@ -85,17 +85,19 @@ public class Robot extends SampleRobot {
 		long start = System.currentTimeMillis();
 		long elapsed;
 		
-		long forwardTime = 1000;
-		long turnTime = 2000;
+		long forwardTime = 7500;
 		
 		while (isAutonomous() && isEnabled()) { // while in auton
 			elapsed = System.currentTimeMillis() - start;
 			
 			if (elapsed < forwardTime) {
-				myRobot.tankDrive(0.5, 0.5);
-			} else if (elapsed < forwardTime + turnTime) {
-				myRobot.tankDrive(-0.15, 0.15);
+				myRobot.tankDrive(-0.8, -0.8);
 			} 
+			else {
+				roboServo.set(1);
+				myRobot.tankDrive(0,0);
+				}
+			
 		}
 		myRobot.tankDrive(0, 0);
 	}
@@ -104,7 +106,7 @@ public class Robot extends SampleRobot {
 		myRobot.setSafetyEnabled(true);
 
 		while (isOperatorControl() && isEnabled()) {
-			myRobot.tankDrive(leftStick.getY() * -1, rightStick.getY() * -1); // set the tank drive
+			myRobot.tankDrive(leftStick.getY(), rightStick.getY()); // set the tank drive
 			if(servoButton.get() == true){
 				roboServo.set(1);
 				
